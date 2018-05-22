@@ -1,5 +1,5 @@
 # interview
-this repo contains coding-challanges for job-interviews:
+this repo contains coding-challanges for job-interviews.
 
 
 ## Max N of array
