@@ -26,9 +26,7 @@ let findMaxN = (data, count) => {
   };
 
   // init: copy first n elements to result array
-  for (let i = 0; i < count; i++) {
-    results.push(data[i]);
-  }
+  results = data.slice(0, count);
 
   // find the resultsMinIndex of the initial elements
   findResultsMinIndex();
