@@ -1,5 +1,3 @@
-const data = [17, 11, 12, 13, 14, 1, 2, 3, 4, 5, 15, 16, 6, 7, 8, 9, 10];
-
 // get the n biggest values of a array
 let findMaxN = (data, count) => {
   // ist the data array long enough
@@ -44,4 +42,4 @@ let findMaxN = (data, count) => {
   return results;
 };
 
-console.log("Result: ", findMaxN(data, 3));
+module.exports = findMaxN;
