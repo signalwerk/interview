@@ -1,4 +1,4 @@
-// get the n biggest values of a array
+// get the n biggest values of an array
 let findMaxN = (data, count) => {
   // ist the data array long enough
   if (data.length < count) {
