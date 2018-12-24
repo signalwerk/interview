@@ -39,114 +39,46 @@ let input = [
   }
 ];
 
-let createNeastedList = function(inList) {
-  // if you just input a list
-  if (Array.isArray(inList)) {
-    return createNeastedList({
-      list: inList,
-      processedList: [],
-      deepCount: 0,
-      startLevel: 1
-    });
-  }
+let createNeastedList = function(inList, inStartLevel, inStartIndex) {
+  let startLevel = inStartLevel || 0;
+  let startIndex = inStartIndex || 0;
 
-  let list = inList.list;
-  let deepCount = inList.deepCount;
-  let startLevel = inList.startLevel;
-  let processedList = inList.processedList;
+  let items = [];
 
-  for (let i = deepCount; i < list.length; i++) {
-    console.log("------------------- process item: ", i);
+  for (let i = startIndex; i < inList.length; i++) {
+    let currentItem = inList[i];
 
-    let currentItem = list[i];
-
-    console.log(
-      `                                   --- currentItem.level: ${
-        currentItem.level
-      }, startLevel: ${startLevel}`
-    );
+// if the start level is smaller than the
+        // if (currentItem.level > startLevel && items === startIndex) {
+        //     items.push({
+        //       children: createNeastedList(inList, startLevel + 1, i)
+        //     });
+        //     break;
+        // }
 
     if (currentItem.level < startLevel) {
-      deepCount = i - 1;
       break;
     }
 
+
     if (currentItem.level === startLevel) {
-      processedList.push({
+
+      items.push({
         level: currentItem.level,
-        text: currentItem.text
+        text: currentItem.text,
+        children: createNeastedList(inList, startLevel + 1, i +1)
       });
     }
-
-    if (currentItem.level > startLevel) {
-      console.log("                                   --- go deep");
-      let children = createNeastedList({
-        list,
-        processedList: [],
-        deepCount: i,
-        startLevel: startLevel + 1
-      });
-
-      i = children.deepCount;
-      console.log(
-        "                                   --- depp count",
-        children.deepCount
-      );
-      processedList.push({
-        children: children.processedList
-      });
-    }
-
-    deepCount = i;
   }
 
-  // console.log(
-  //   "------------------------------------------ startLevel",
-  //   startLevel
-  // );
 
-  return {
-    list,
-    processedList,
-    deepCount,
-    startLevel
-  };
+  // if((items.length === 0) && (inList.length > 0) && (startIndex === 0)) {
+  //   console.log("--kick", startLevel, startIndex )
+  //   return createNeastedList(inList, startLevel + 1, startIndex)
+  // }
+  return items;
 };
 
-//   return { list: processedList, deepCount: addedItems };
-//
-//
-//
-//   let processedList = [];
-//   let addedItems = 0;
-//
-//   for (let i = startAtIndex; i < flatList.length; i++) {
-//     let currentItem = flatList[i];
-//     if (currentItem.level > startLevel) {
-//       let children = createNeastedList(
-//         { list: flatList, deepCount: addedItems },
-//         startLevel + 1,
-//         i
-//       );
-//       addedItems = addedItems + children.deepCount;
-//
-//       processedList.push({
-//         children: children.list
-//       });
-//     }
-//     if (currentItem.level === startLevel) {
-//       processedList.push({
-//         level: currentItem.level,
-//         text: currentItem.text
-//       });
-//     }
-//
-//     i = i + addedItems;
-//   }
-//
-//   return { list: processedList, deepCount: addedItems };
-// };
+let process = createNeastedList(input, 1);
 
-let process = createNeastedList(input);
-
-console.log(JSON.stringify(process.processedList, null, 2));
+console.log(JSON.stringify(process, null, 2));
