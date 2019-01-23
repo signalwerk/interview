@@ -1,5 +1,3 @@
-// let flatToTree = (data, count) => {
-
 let input = [
   {
     level: 1,
@@ -39,46 +37,55 @@ let input = [
   }
 ];
 
-let createNeastedList = function(inList, inStartLevel, inStartIndex) {
-  let startLevel = inStartLevel || 0;
-  let startIndex = inStartIndex || 0;
+let flatToTree = function(list, inIndex, inStartLevel, inTree) {
+  // set defaults
+  let index = inIndex || 0;
+  let level = inStartLevel || 0;
+  let tree = inTree || [];
 
-  let items = [];
+  for (let i = index; i < list.length; i++) {
+    let currentItem = list[i];
 
-  for (let i = startIndex; i < inList.length; i++) {
-    let currentItem = inList[i];
-
-// if the start level is smaller than the
-        // if (currentItem.level > startLevel && items === startIndex) {
-        //     items.push({
-        //       children: createNeastedList(inList, startLevel + 1, i)
-        //     });
-        //     break;
-        // }
-
-    if (currentItem.level < startLevel) {
+    // if the level decreases
+    if (currentItem.level < level) {
+      index = i - 1;
       break;
     }
 
-
-    if (currentItem.level === startLevel) {
-
-      items.push({
+    // add item if right level
+    if (currentItem.level === level) {
+      tree.push({
         level: currentItem.level,
         text: currentItem.text,
-        children: createNeastedList(inList, startLevel + 1, i +1)
+        children: []
       });
     }
+
+    // if level increases we ned to append the children
+    if (currentItem.level > level) {
+      let children = flatToTree(list, i, level + 1, []);
+
+      i = children.index;
+
+      if (!tree.length) {
+        tree.push({ children: [] });
+      }
+
+      // append children we get from the rutine
+      tree[tree.length - 1].children.push(...children.tree);
+    }
+
+    index = i;
   }
 
-
-  // if((items.length === 0) && (inList.length > 0) && (startIndex === 0)) {
-  //   console.log("--kick", startLevel, startIndex )
-  //   return createNeastedList(inList, startLevel + 1, startIndex)
-  // }
-  return items;
+  return {
+    tree,
+    index
+  };
 };
 
-let process = createNeastedList(input, 1);
+module.exports = flatToTree;
 
-console.log(JSON.stringify(process, null, 2));
+// let process = flatToTree(input).tree;
+
+// console.log(JSON.stringify(process, null, 2));
