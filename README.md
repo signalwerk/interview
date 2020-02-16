@@ -5,9 +5,11 @@ this repo contains coding-challanges for job-interviews.
 ## Max N of array
 Return the N biggest values of an array. The code should be as efficient as possible and the maintainability should be ok.
 
+## Calculator
+Build a calculator in html together with js. Don't use external libraries.
 
-### Not in Code
-* Imageine you have an array with ranom numbers (int or float) in it. This array has to be split (but not resort) in five groups. The order within the group has to stay the same. The sum of each group should be as similar as possible to the other groups.
+## Group sum
+Imageine you have an array with ranom numbers (int or float) in it. This array has to be split (but not resort) in five groups. The order within the group has to stay the same. The sum of each group should be as similar as possible to the other groups.
 
 ```sh
 exampleInnput =  1, 1, 2,   3, 2,   3, 1,   2, 2,   2, 1, 1;
