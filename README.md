@@ -1,5 +1,6 @@
 # interview
 this repo contains coding-challanges for job-interviews.
+See also article [70 JavaScript Interview Questions](https://dev.to/macmacky/70-javascript-interview-questions-5gfi)
 
 
 ## Max N of array
